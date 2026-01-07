@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIBE CODE | Streetwear Store</title>
+    <style>
+        :root { --orange: #ff5500; --black: #0a0a0a; --gray: #1a1a1a; }
+        body { background-color: var(--black); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+        
+        .free-shipping-banner { background: var(--orange); color: white; text-align: center; padding: 10px 0; font-weight: bold; font-size: 0.9rem; letter-spacing: 1px; }
+
+        /* --- SEÑALIZACIÓN DEL CÓDIGO DE DESCUENTO --- */
+        .discount-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 100;
+        }
+        .discount-label {
+            font-size: 0.65rem;
+            color: var(--orange);
+            font-weight: bold;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .discount-input {
+            background: #111;
+            border: 1px solid #333;
+            color: white;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            outline: none;
+            width: 130px;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .discount-input:focus {
+            border-color: var(--orange);
+            box-shadow: 0 0 10px rgba(255, 85, 0, 0.2);
+        }
+        .discount-btn {
+            background: #222;
+            color: white;
+            border: 1px solid #333;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-top: 5px;
+            transition: 0.3s;
+        }
+        .discount-btn:hover {
+            background: var(--orange);
+            border-color: var(--orange);
+        }
+
+        header { padding: 40px 20px; text-align: center; border-bottom: 1px solid #333; position: relative; }
+        .logo { font-size: 3rem; font-weight: 900; letter-spacing: -2px; color: white; margin: 0; }
+        .logo span { color: var(--orange); }
+
+        .tabs-container { display: flex; justify-content: center; gap: 10px; margin: 30px 0; }
+        .tab-btn { 
+            background: #111; border: 1px solid #333; color: #666; font-size: 0.9rem; 
+            font-weight: bold; padding: 12px 25px; cursor: pointer; text-transform: uppercase; 
+            border-radius: 50px; transition: 0.3s; 
+        }
+        .tab-btn.active { color: white; background: var(--orange); border-color: var(--orange); }
+
+        .content-section { display: none; padding: 20px; max-width: 1200px; margin: auto; }
+        .content-section.active { display: block; animation: fadeIn 0.4s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 350px)); gap: 30px; justify-content: center; }
+        .card { background: var(--gray); border-radius: 20px; padding: 20px; border: 1px solid #222; text-align: center; position: relative; }
+        
+        .img-container { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-radius: 15px; background: #000; margin-bottom: 20px; opacity: 0.6; }
+        .card img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(50%); }
+        
+        .tag { position: absolute; top: 30px; right: 30px; background: #444; color: white; padding: 6px 12px; font-size: 0.75rem; font-weight: bold; border-radius: 50px; z-index: 10; }
+        .price { font-size: 1.8rem; font-weight: bold; color: #666; margin-bottom: 25px; display: block; }
+
+        .buy-btn-soon { 
+            background: #222; 
+            color: #555; 
+            padding: 16px 25px; 
+            text-decoration: none; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            display: block; 
+            border: 2px solid #333; 
+            text-transform: uppercase; 
+            cursor: not-allowed;
+            letter-spacing: 1px;
+        }
+
+        .trust-section { text-align: center; padding: 50px 20px; background: #0a0a0a; border-top: 1px solid #222; margin-top: 50px; }
+        .trust-icons { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 25px; }
+        .trust-item { color: #888; font-size: 0.8rem; display: flex; align-items: center; gap: 8px; }
+        footer { padding: 40px; text-align: center; color: #444; border-top: 1px solid #222; font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<div class="free-shipping-banner">🚚 ENVÍO GRATUITO A TODO EL MUNDO POR TIEMPO LIMITADO</div>
+
+<header>
+    <div class="discount-container">
+        <span class="discount-label">Código Promo</span>
+        <input type="text" id="coupon" class="discount-input" placeholder="">
+        <button class="discount-btn" onclick="applyCoupon()">APLICAR</button>
+    </div>
+    <div class="logo">VIBE<span>CODE</span></div>
+    <p>UNLOCK YOUR STYLE</p>
+</header>
+
+<div class="tabs-container">
+    <button id="btn-general" class="tab-btn active" onclick="showSection('general')">General</button>
+    <button id="btn-exclusivo" class="tab-btn" onclick="showSection('exclusivo')">Exclusivo ✨</button>
+</div>
+
+<div id="general" class="content-section active">
+    <div style="text-align: center; padding: 80px 20px;">
+        <h2 style="letter-spacing: 2px;">PRÓXIMAMENTE NUEVA COLECCIÓN</h2>
+        <p style="color: #666;">Estamos trabajando en los nuevos diseños. Suscríbete para no perdértelo.</p>
+    </div>
+</div>
+
+<div id="exclusivo" class="content-section">
+    <div class="product-grid">
+        <div class="card">
+            <div class="tag">PRÓXIMAMENTE</div>
+            <div class="img-container">
+                <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?q=80&w=1000&auto=format&fit=crop" alt="Mistery Box">
+            </div>
+            <h3>VIBE MISTERY BOX</h3>
+            <p style="color: var(--orange); font-weight: bold; margin-bottom: 15px;">DROP: COMING SOON</p>
+            <span class="price">49,95€</span>
+            <div class="buy-btn-soon">BLOQUEADO</div>
+        </div>
+    </div>
+</div>
+
+<div class="trust-section">
+    <div class="trust-icons">
+        <div class="trust-item">🛡️ PAGO SEGURO</div>
+        <div class="trust-item">📦 SEGUIMIENTO EN VIVO</div>
+        <div class="trust-item">✨ DISEÑO EXCLUSIVO</div>
+    </div>
+    <p style="color: #555; font-size: 0.9rem;">Soporte: jacobo1guerra1librero@gmail.com</p>
+</div>
+
+<footer><p>&copy; 2026 VIBE CODE. Los precios mostrados incluyen todos los costes de gestión y envío gratuito.</p></footer>
+
+<script>
+    function showSection(sectionId) {
+        document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(sectionId).classList.add('active');
+        document.getElementById('btn-' + sectionId).classList.add('active');
+    }
+
+    function applyCoupon() {
+        const code = document.getElementById('coupon').value;
+        if(code.trim() !== "") {
+            alert("Código '" + code + "' verificado. El descuento se aplicará automáticamente en el checkout una vez abierto el drop.");
+        }
+    }
+</script>
+
+</body>
+</html>
